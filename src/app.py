@@ -52,29 +52,22 @@ with col3:
 st.divider()
 
 # --- PREDICCIÓN ---
-# Centramos el botón
 _, col_btn, _ = st.columns([1, 1, 1])
 
 with col_btn:
     predict_btn = st.button("Hacer Predicción", use_container_width=True)
 
 if predict_btn:
-    # 1. Recoger los valores en el MISMO orden que el video
     features = [[fixed_acidity, volatile_acidity, citric_acid, residual_sugar, 
                  chlorides, free_sulfur_dioxide, total_sulfur_dioxide, density, 
                  pH, sulphates, alcohol]]
     
-    # 2. Nombres EXACTOS de las columnas como lo tenías en Flask
     column_names = ['fixed acidity', 'volatile acidity', 'citric acid', 'residual sugar', 
                     'chlorides', 'free sulfur dioxide', 'total sulfur dioxide', 'density', 
                     'pH', 'sulphates', 'alcohol']
     
-    # 3. Crear el DataFrame
     df_features = pd.DataFrame(features, columns=column_names)
-    
-    # 4. Predecir
     prediction = model.predict(df_features)[0]
     
-    # Mostrar el resultado
     st.markdown(f"<div class='prediccion'>La calidad predicha de este vino es: {prediction}</div>", unsafe_allow_html=True)
     st.balloons()
